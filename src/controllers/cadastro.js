@@ -9,7 +9,6 @@ module.exports = {
       // Hash da senha usando bcrypt
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Crie um novo usuário na tabela logins com a senha criptografada
       const novoCadastro = await Login.create({ email, password: hashedPassword });
 
       res.status(201).json({ success: true, message: 'Cadastro realizado com sucesso' });

@@ -4,13 +4,11 @@ const router = require('./router');
 
 const api = express();
 
-// Habilitar o CORS para todas as rotas
 api.use(cors());
 
-// Parse do corpo da requisição como JSON
 api.use(express.json());
 
-// Use o seu roteador
+
 api.use(router);
 
 const PORT = 4200;
