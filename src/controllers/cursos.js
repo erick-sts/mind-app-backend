@@ -1,5 +1,7 @@
 const ModelCursos = require('../models/cursos');
 
+ModelCursos.sync();
+
 module.exports =
 {
     async List(req, res) {
@@ -53,12 +55,16 @@ module.exports =
     },
     async Delete(req, res) {
         try {
-            const curso = await ModelCursos.findByPk(req.body.id);
+            const curso = await ModelCursos.findByPk(req.params.id);
+
+            if (!curso) {
+                return res.status(404).json({ error: 'Curso não encontrado' });
+            }
 
             await curso.destroy();
-            return res.json(cursos);
+            return res.json({ message: 'Curso excluído com sucesso' });
         } catch (erro) {
-            return console.error('Erro na Update: ', erro)
+            return res.status(500).json({ error: 'Erro ao excluir curso' });
         }
-    },
+    }
 }
